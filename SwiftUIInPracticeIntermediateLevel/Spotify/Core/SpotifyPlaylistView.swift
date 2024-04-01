@@ -65,8 +65,7 @@ struct SpotifyPlaylistView: View {
                 }
             }
             .scrollIndicators(.hidden)
-            
-            //3 Titlec-> budet menyatsya kogda spisok pojdet ma verx
+            //3
             header
             .frame(maxHeight: .infinity, alignment: .top)
             

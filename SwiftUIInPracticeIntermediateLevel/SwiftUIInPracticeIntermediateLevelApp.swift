@@ -19,7 +19,6 @@ struct SwiftUIInPracticeIntermediateLevelApp: App {
     }
 }
 
-//Jest Smaxivaniya nazad
 extension UINavigationController: UIGestureRecognizerDelegate {
     override open func viewDidLoad() {
         super.viewDidLoad()

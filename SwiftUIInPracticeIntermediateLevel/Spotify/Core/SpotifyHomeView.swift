@@ -10,9 +10,6 @@ import SwiftfulUI
 import SwiftfulRouting
 
 struct SpotifyHomeView: View {
-    // IN MVVM
-//    @State var viewModel: SpotifyHomeViewModel
-    //NO MVVM
     @State private var currentUser: User? = nil
     @State private var selectedCategory: Category? = nil
     @State private var products: [Product] = []
@@ -54,17 +51,11 @@ struct SpotifyHomeView: View {
 }
 
 #Preview {
-    //1 no MVVM
     RouterView { _ in
         SpotifyHomeView()
     }
-    //2. IN MVVM
-//    RouterView { router in
-//        SpotifyHomeView(viewModel: SpotifyHomeViewModel(router: router))
-//    }
 }
 
-// Compnents Layer fo View
 extension SpotifyHomeView {
     //1
     private var headerSection: some View {
@@ -75,7 +66,6 @@ extension SpotifyHomeView {
                         .background(.spotifyWhite)
                         .clipShape(Circle())
                         .onTapGesture {
-                            //najav na icon avatar mi viydem iz nego
                             router.dismissScreen()
                         }
                 }
@@ -164,26 +154,7 @@ extension SpotifyHomeView {
     }
 }
 
-// Func For Get Data -> NO MVVM
 extension SpotifyHomeView {
-    
-//     Tak on budet kajdiy raz zagrujat .. v ovom dobavim proverku na isEmpty...
-//    private func getData() async {
-//        do {
-//            currentUser = try await DatabaseHelper().getUsers().first
-//            products = try await Array(DatabaseHelper().getProducts().prefix(8))
-//            
-//            var rows: [ProductRow] = []
-//            let allBrands = Set(products.map { $0.brand })
-//            for brand in allBrands {
-//                rows.append(ProductRow(title: brand.capitalized, products: products))
-//            }
-//            productRows = rows
-//        } catch {
-//            
-//        }
-//    }
-    
     private func getData() async {
         guard products.isEmpty else { return }
         do {
@@ -210,42 +181,3 @@ extension SpotifyHomeView {
         }
     }
 }
-
-/*
- 
- @Observable    // Tak bi mi smogli vse perestoyt po takomu principu <MVVM>
- final class SpotifyHomeViewModel {
-     let router:AnyRouter
-     
-     var currentUser: User? = nil
-     var selectedCategory: Category? = nil
-     var products: [Product] = []
-     var productRows: [ProductRow] = []
-     
-     init(router: AnyRouter) {
-         self.router = router
-         self.currentUser = currentUser
-         self.selectedCategory = selectedCategory
-         self.products = products
-         self.productRows = productRows
-     }
-     
-     func getData() async {
-         guard products.isEmpty else { return }
-         do {
-             currentUser = try await DatabaseHelper().getUsers().first
-             products = try await Array(DatabaseHelper().getProducts().prefix(8))
-             
-             var rows: [ProductRow] = []
-             let allBrands = Set(products.map { $0.brand })
-             for brand in allBrands {
-                 rows.append(ProductRow(title: brand.capitalized, products: products))
-             }
-             productRows = rows
-         } catch {
-             
-         }
-     }
- }
- 
- */

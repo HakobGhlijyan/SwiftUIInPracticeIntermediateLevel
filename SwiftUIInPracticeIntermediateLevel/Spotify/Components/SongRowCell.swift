@@ -12,7 +12,6 @@ struct SongRowCell: View {
     var imageName: String = Constants.randomImage
     var title: String = "Some Title"
     var subtitle: String? = "Some Subtitle"
-    
     var onCellPressed: (() -> Void)? = nil
     var onEllipsisPressed: (() -> Void)? = nil
     
