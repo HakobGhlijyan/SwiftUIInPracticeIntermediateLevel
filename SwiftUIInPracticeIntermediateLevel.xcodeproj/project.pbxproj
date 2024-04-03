@@ -30,6 +30,8 @@
 		34DF78722BB8427800024E17 /* SpotifyCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DF78712BB8427800024E17 /* SpotifyCategoryCell.swift */; };
 		34DF78752BB8457800024E17 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34DF78742BB8457800024E17 /* Category.swift */; };
 		34E52DA92BBAAA6F00A8EE1A /* PlaylistDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E52DA82BBAAA6F00A8EE1A /* PlaylistDescriptionCell.swift */; };
+		34F777212BBD7F5200FAA7F5 /* BumbleHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F777202BBD7F5200FAA7F5 /* BumbleHomeView.swift */; };
+		34F777232BBD844E00FAA7F5 /* BumbleFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F777222BBD844E00FAA7F5 /* BumbleFilterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +56,8 @@
 		34DF78712BB8427800024E17 /* SpotifyCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyCategoryCell.swift; sourceTree = "<group>"; };
 		34DF78742BB8457800024E17 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		34E52DA82BBAAA6F00A8EE1A /* PlaylistDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistDescriptionCell.swift; sourceTree = "<group>"; };
+		34F777202BBD7F5200FAA7F5 /* BumbleHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BumbleHomeView.swift; sourceTree = "<group>"; };
+		34F777222BBD844E00FAA7F5 /* BumbleFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BumbleFilterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +95,7 @@
 			children = (
 				3468DA502BB6ED01004BE82F /* SwiftUIInPracticeIntermediateLevelApp.swift */,
 				3468DA522BB6ED01004BE82F /* ContentView.swift */,
+				34F7771C2BBD7EE300FAA7F5 /* Bumble */,
 				34DF786C2BB83F7700024E17 /* Spotify */,
 				3468DA612BB6EDEA004BE82F /* Shared */,
 				3468DA542BB6ED03004BE82F /* Assets.xcassets */,
@@ -165,6 +170,39 @@
 			isa = PBXGroup;
 			children = (
 				34DF78742BB8457800024E17 /* Category.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		34F7771C2BBD7EE300FAA7F5 /* Bumble */ = {
+			isa = PBXGroup;
+			children = (
+				34F7771F2BBD7F0000FAA7F5 /* Models */,
+				34F7771D2BBD7EEE00FAA7F5 /* Components */,
+				34F7771E2BBD7EF100FAA7F5 /* Core */,
+			);
+			path = Bumble;
+			sourceTree = "<group>";
+		};
+		34F7771D2BBD7EEE00FAA7F5 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				34F777222BBD844E00FAA7F5 /* BumbleFilterView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		34F7771E2BBD7EF100FAA7F5 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				34F777202BBD7F5200FAA7F5 /* BumbleHomeView.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		34F7771F2BBD7F0000FAA7F5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -249,6 +287,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34F777212BBD7F5200FAA7F5 /* BumbleHomeView.swift in Sources */,
 				3468DA632BB6EE18004BE82F /* ImageLoaderView.swift in Sources */,
 				34DF78752BB8457800024E17 /* Category.swift in Sources */,
 				34DF78722BB8427800024E17 /* SpotifyCategoryCell.swift in Sources */,
@@ -257,6 +296,7 @@
 				3465C88F2BBAF7C200965020 /* SongRowCell.swift in Sources */,
 				3443807C2BB6F368009D54B5 /* DatabaseHelper.swift in Sources */,
 				34DF78702BB83FBD00024E17 /* SpotifyHomeView.swift in Sources */,
+				34F777232BBD844E00FAA7F5 /* BumbleFilterView.swift in Sources */,
 				34881BDA2BB9BB3600972F6F /* ImageTitleRowCell.swift in Sources */,
 				3468DA532BB6ED01004BE82F /* ContentView.swift in Sources */,
 				3468DA512BB6ED01004BE82F /* SwiftUIInPracticeIntermediateLevelApp.swift in Sources */,
