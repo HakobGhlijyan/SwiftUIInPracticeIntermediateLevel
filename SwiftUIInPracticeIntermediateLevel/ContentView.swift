@@ -20,7 +20,52 @@ struct ContentView: View {
                     SpotifyHomeView()
                 }
             }
+            Button("Open Bumble") {
+                router.showScreen(.fullScreenCover) { _ in
+                    BumbleHomeView()
+                }
+            }
         }
+        //Icon
+        HStack {
+            //Spotify
+            Button(action: {
+                router.showScreen(.fullScreenCover) { _ in
+                    SpotifyHomeView()
+                }
+            }, label: {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 25.0, style: .continuous)
+                        .fill(.black)
+                        .frame(width: 100, height: 100)
+                    Text("Spotify")
+                        .font(.title2)
+                        .foregroundStyle(.green)
+                        .bold()
+                }
+            })
+            //Bumble
+            Button(action: {
+                router.showScreen(.fullScreenCover) { _ in
+                    BumbleHomeView()
+                }
+            }, label: {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 25.0, style: .continuous)
+                        .fill(.bumbleGray)
+                        .frame(width: 100, height: 100)
+                    Text("Bumble")
+                        .font(.title2)
+                        .foregroundStyle(.bumbleYellow)
+                        .bold()
+                }
+            })
+            
+        }
+        .frame(maxWidth: .infinity, alignment: .center)
+        .padding(40)
+        
+        
     }
 }
 
