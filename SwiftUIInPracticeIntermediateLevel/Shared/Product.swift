@@ -25,6 +25,30 @@ struct Product: Codable, Identifiable {
     var firstImage: String {
         images.first ?? Constants.randomImage
     }
+
+    //version
+    /*
+     var recentlyAdded: Bool {
+         Bool.random()
+     }
+     budet kajdiy raz naznachat novuyu true ili false ... a nam myjno chtob imel let constant variant ne izmenyaemiy
+     
+     let recentlyAdded: Bool = {
+        return Bool.random()
+     }()
+     
+     tak , no on budet ne prognaziruemin... mojno sdelat tak chtob vozroshalos 25 %
+     
+     let recentlyAdded: Bool = {
+         return Int.random(in: 1...4) == 1
+     }()
+     
+     budet true v 25 % sluchae....
+     */
+    let recentlyAdded: Bool = {
+        return Int.random(in: 1...4) == 1
+    }()
+    
     
     static var mock: Product = Product(
         id: 123,
