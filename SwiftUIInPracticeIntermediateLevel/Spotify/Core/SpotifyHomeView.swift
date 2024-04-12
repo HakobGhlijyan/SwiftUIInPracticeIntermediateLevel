@@ -14,6 +14,7 @@ struct SpotifyHomeView: View {
     @State private var selectedCategory: Category? = nil
     @State private var products: [Product] = []
     @State private var productRows: [ProductRow] = []
+    
     @Environment(\.router) var router
     
     var body: some View {
