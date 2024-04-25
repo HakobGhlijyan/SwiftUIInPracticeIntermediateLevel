@@ -129,7 +129,6 @@ struct ExtensionModifierAndView_: View {
  
  */
 
-
 //asStretchyHeader
 /*
  
@@ -392,3 +391,234 @@ struct ExtensionModifierAndView_: View {
  
  
  */
+
+//ScrollViewWithOnScrollChanged -> in LocationReader -> in FrameReader....
+/*
+ 
+ @available(iOS 14, *)
+ public struct ScrollViewWithOnScrollChanged<Content:View>: View {
+     
+     let axes: Axis.Set
+     let showsIndicators: Bool
+     let content: Content
+     let onScrollChanged: (_ origin: CGPoint) -> ()
+     @State private var coordinateSpaceID: String = UUID().uuidString
+     
+     public init(
+         _ axes: Axis.Set = .vertical,
+         showsIndicators: Bool = false,
+         @ViewBuilder content: () -> Content,
+         onScrollChanged: @escaping (_ origin: CGPoint) -> ()) {
+             self.axes = axes
+             self.showsIndicators = showsIndicators
+             self.content = content()
+             self.onScrollChanged = onScrollChanged
+         }
+     
+     public var body: some View {
+         ScrollView(axes, showsIndicators: showsIndicators) {
+             LocationReader(coordinateSpace: .named(coordinateSpaceID), onChange: onScrollChanged)
+             content
+         }
+         .coordinateSpace(name: coordinateSpaceID)
+     }
+ }
+
+ @available(iOS 14, *)
+ struct ScrollViewWithOnScrollChanged_Previews: PreviewProvider {
+     
+     struct PreviewView: View {
+         
+         @State private var yPosition: CGFloat = 0
+
+         var body: some View {
+             ScrollViewWithOnScrollChanged {
+                 VStack {
+                     ForEach(0..<30) { x in
+                         Text("x: \(x)")
+                             .frame(maxWidth: .infinity)
+                             .frame(height: 200)
+                             .cornerRadius(10)
+                             .background(Color.red)
+                             .padding()
+                             .id(x)
+                     }
+                 }
+             } onScrollChanged: { origin in
+                 yPosition = origin.y
+             }
+             .overlay(Text("Offset: \(yPosition)"))
+         }
+     }
+     
+     static var previews: some View {
+         PreviewView()
+     }
+ }
+
+ 
+ */
+
+//LocationReader
+/*
+ 
+ @available(iOS 14, *)
+ /// Adds a transparent View and read it's center point.
+ ///
+ /// Adds a GeometryReader with 0px by 0px frame.
+ public struct LocationReader: View {
+     
+     let coordinateSpace: CoordinateSpace
+     let onChange: (_ location: CGPoint) -> Void
+
+     public init(coordinateSpace: CoordinateSpace, onChange: @escaping (_ location: CGPoint) -> Void) {
+         self.coordinateSpace = coordinateSpace
+         self.onChange = onChange
+     }
+     
+     public var body: some View {
+         FrameReader(coordinateSpace: coordinateSpace) { frame in
+             onChange(CGPoint(x: frame.midX, y: frame.midY))
+         }
+         .frame(width: 0, height: 0, alignment: .center)
+     }
+ }
+
+ @available(iOS 14, *)
+ public extension View {
+     
+     /// Get the center point of the View
+     ///
+     /// Adds a 0px GeometryReader to the background of a View.
+     func readingLocation(coordinateSpace: CoordinateSpace = .global, onChange: @escaping (_ location: CGPoint) -> ()) -> some View {
+         background(LocationReader(coordinateSpace: coordinateSpace, onChange: onChange))
+     }
+     
+ }
+
+ @available(iOS 14, *)
+ struct LocationReader_Previews: PreviewProvider {
+     
+     struct PreviewView: View {
+         
+         @State private var yOffset: CGFloat = 0
+         
+         var body: some View {
+             ScrollView(.vertical) {
+                 VStack {
+                     Text("Hello, world!")
+                         .frame(maxWidth: .infinity)
+                         .frame(height: 200)
+                         .cornerRadius(10)
+                         .background(Color.green)
+                         .padding()
+                         .readingLocation { location in
+                             yOffset = location.y
+                         }
+                     
+                     ForEach(0..<30) { x in
+                         Text("")
+                             .frame(maxWidth: .infinity)
+                             .frame(height: 200)
+                             .cornerRadius(10)
+                             .background(Color.green)
+                             .padding()
+                     }
+                 }
+             }
+             .coordinateSpace(name: "test")
+             .overlay(Text("Offset: \(yOffset)"))
+         }
+     }
+
+     static var previews: some View {
+         PreviewView()
+     }
+ }
+
+ 
+ */
+
+//FrameReader
+/*
+ 
+ @available(iOS 14, *)
+ /// Adds a transparent View and read it's frame.
+ ///
+ /// Adds a GeometryReader with infinity frame.
+ public struct FrameReader: View {
+     
+     let coordinateSpace: CoordinateSpace
+     let onChange: (_ frame: CGRect) -> Void
+     
+     public init(coordinateSpace: CoordinateSpace, onChange: @escaping (_ frame: CGRect) -> Void) {
+         self.coordinateSpace = coordinateSpace
+         self.onChange = onChange
+     }
+
+     public var body: some View {
+         GeometryReader { geo in
+             Text("")
+                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                 .onAppear(perform: {
+                     onChange(geo.frame(in: coordinateSpace))
+                 })
+                 .onChange(of: geo.frame(in: coordinateSpace), perform: onChange)
+         }
+         .frame(maxWidth: .infinity, maxHeight: .infinity)
+     }
+ }
+
+ @available(iOS 14, *)
+ public extension View {
+     
+     /// Get the frame of the View
+     ///
+     /// Adds a GeometryReader to the background of a View.
+     func readingFrame(coordinateSpace: CoordinateSpace = .global, onChange: @escaping (_ frame: CGRect) -> ()) -> some View {
+         background(FrameReader(coordinateSpace: coordinateSpace, onChange: onChange))
+     }
+ }
+
+ @available(iOS 14, *)
+ struct FrameReader_Previews: PreviewProvider {
+     
+     struct PreviewView: View {
+         
+         @State private var yOffset: CGFloat = 0
+         
+         var body: some View {
+             ScrollView(.vertical) {
+                 VStack {
+                     Text("")
+                         .frame(maxWidth: .infinity)
+                         .frame(height: 200)
+                         .cornerRadius(10)
+                         .background(Color.green)
+                         .padding()
+                         .readingFrame { frame in
+                             yOffset = frame.minY
+                         }
+                     
+                     ForEach(0..<30) { x in
+                         Text("")
+                             .frame(maxWidth: .infinity)
+                             .frame(height: 200)
+                             .cornerRadius(10)
+                             .background(Color.green)
+                             .padding()
+                     }
+                 }
+             }
+             .coordinateSpace(name: "test")
+             .overlay(Text("Offset: \(yOffset)"))
+         }
+     }
+
+     static var previews: some View {
+         PreviewView()
+     }
+ }
+
+ 
+*/
