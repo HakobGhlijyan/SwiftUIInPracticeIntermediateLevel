@@ -44,6 +44,7 @@ struct NetflixDetailsProductView: View {
                 }
             }
             .foregroundStyle(.netflixLightGray)
+            
             //3
             if let isTopTen {
                 HStack(spacing: 8) {
