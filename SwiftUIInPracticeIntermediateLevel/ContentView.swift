@@ -25,6 +25,11 @@ struct ContentView: View {
                     BumbleHomeView()
                 }
             }
+            Button("Open Netflix") {
+                router.showScreen(.fullScreenCover) { _ in
+                    NetflixHomeView()
+                }
+            }
         }
         //Icon
         HStack {
@@ -57,6 +62,22 @@ struct ContentView: View {
                     Text("Bumble")
                         .font(.title2)
                         .foregroundStyle(.bumbleYellow)
+                        .bold()
+                }
+            })
+            //Netflix
+            Button(action: {
+                router.showScreen(.fullScreenCover) { _ in
+                    NetflixHomeView()
+                }
+            }, label: {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 25.0, style: .continuous)
+                        .fill(.netflixBlack)
+                        .frame(width: 100, height: 100)
+                    Text("Netflix")
+                        .font(.title2)
+                        .foregroundStyle(.netflixRed)
                         .bold()
                 }
             })

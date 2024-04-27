@@ -7,8 +7,10 @@
 
 import SwiftUI
 import SwiftfulUI
+import SwiftfulRouting
 
 struct NetflixHomeView: View {
+    @Environment(\.router) var router
     @State private var filters = FilterModel.mockArray
     @State private var selectedFilter: FilterModel? = nil
     @State private var fullHeaderSize: CGSize = .zero
@@ -37,7 +39,9 @@ struct NetflixHomeView: View {
 }
 
 #Preview {
-    NetflixHomeView()
+    RouterView { _ in
+        NetflixHomeView()
+    }
 }
 
 //MARK: - VIEW
@@ -47,6 +51,9 @@ extension NetflixHomeView {
             Text("For You")
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.title)
+                .onTapGesture {
+                    router.dismissScreen()
+                }
         
             HStack(spacing: 16.0) {
                 Image(systemName: "tv.badge.wifi")
@@ -154,13 +161,15 @@ extension NetflixHomeView {
             title: heroProduct.title,
             categories: [heroProduct.category.capitalized, heroProduct.brand],
             onBackgroundPressed: {
-                
+                //Vizovim dlya perexoda... sheet
+                onProductPressed(product: heroProduct)
             },
             onPlayPressed: {
-                
+                //Vizovim dlya perexoda... sheet
+                onProductPressed(product: heroProduct)
             },
             onMyListPressed: {
-                
+                // ignor this time
             }
         )
         .padding(24)
@@ -183,6 +192,9 @@ extension NetflixHomeView {
                                     topTeRanking: rowIndex == 1 ? (index + 1) : nil
                                     //esli row index budet vtoraya , to u nix budet rating
                                 )
+                                .onTapGesture {
+                                    onProductPressed(product: product)
+                                }
                             }
                         }
                         .padding(.horizontal, 16)
@@ -211,6 +223,13 @@ extension NetflixHomeView {
             productRows = rows
         } catch {
             
+        }
+    }
+    
+    // Universal func for sheet
+    private func onProductPressed(product: Product) {
+        router.showScreen(.sheet) { _ in
+            NetflixMovieDetailsView(product: product)
         }
     }
 }

@@ -35,6 +35,7 @@ enum RateOption: String, CaseIterable {
 
 struct RateButton: View {
     @State private var showPopover: Bool = false
+    var onRatingSelected: ((RateOption) -> Void)? = nil
     
     var body: some View {
         VStack(spacing: 8.0) {
@@ -54,14 +55,12 @@ struct RateButton: View {
         .popover(isPresented: $showPopover) {
             ZStack {
                 Color.netflixDarkGray.ignoresSafeArea()
-                   
-//                HStack(spacing: 12) {
-//                    rateButton(option: .dislike)
-//                    rateButton(option: .like)
-//                    rateButton(option: .love)
-//                }
-                // VMESTO NEGO ForEach
-//                ForEach(
+
+                HStack(spacing: 12.0) {
+                    ForEach(RateOption.allCases, id: \.self) { option in
+                        rateButton(option: option)
+                    }
+                }
                 
             }
             .presentationCompactAdaptation(.popover)
@@ -73,16 +72,15 @@ struct RateButton: View {
         VStack(spacing: 8) {
             Image(systemName: option.image)
                 .font(.title2)
-            
             Text(option.title)
                 .font(.caption)
-            
         }
         .foregroundStyle(.netflixWhite)
         .padding(4)
         .background(.black.opacity(0.0001))
         .onTapGesture {
-            
+            showPopover = false
+            onRatingSelected?(option)
         }
     }
     
