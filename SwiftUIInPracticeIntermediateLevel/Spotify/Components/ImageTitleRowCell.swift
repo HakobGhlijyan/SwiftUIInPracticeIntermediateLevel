@@ -22,6 +22,7 @@ struct ImageTitleRowCell: View {
                 .lineLimit(2)
                 .padding(4)
         }
+        .background(.black.opacity(0.0001))
         .frame(width: imageSize)
     }
         
